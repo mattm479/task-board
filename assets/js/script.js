@@ -100,7 +100,28 @@ function renderTaskList() {
 
 // Todo: create a function to handle adding a new task
 function handleAddTask(event){
+    event.preventDefault();
 
+    const tasks = readTasksFromStorage();
+
+    $("#formModal").modal('hide');
+
+    const task = {
+        id: generateTaskId(),
+        title: titleEl.val(),
+        dueDate: dueDateEl.val(),
+        description: descriptionEl.val(),
+        status: "to-do"
+    };
+
+    tasks.push(task);
+    addTasksToStorage(tasks);
+
+    titleEl.val("");
+    dueDateEl.val("");
+    descriptionEl.val("");
+
+    renderTaskList();
 }
 
 // Todo: create a function to handle deleting a task
