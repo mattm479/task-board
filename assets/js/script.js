@@ -126,7 +126,18 @@ function handleAddTask(event){
 
 // Todo: create a function to handle deleting a task
 function handleDeleteTask(){
+    const tasks = readTasksFromStorage();
+    const taskId = $(this).attr("data-task-id");
 
+    for (let task of tasks) {
+        if (task.id === taskId) {
+            const index = tasks.indexOf(task);
+            tasks.splice(index, 1);
+        }
+    }
+
+    addTasksToStorage(tasks);
+    renderTaskList();
 }
 
 // Todo: create a function to handle dropping a task into a new status lane
