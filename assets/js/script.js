@@ -70,7 +70,32 @@ function createTaskCard(task) {
 
 // Todo: create a function to render the task list and make cards draggable
 function renderTaskList() {
+    const tasks = readTasksFromStorage();
 
+    todoListEl.empty();
+    inProgressListEl.empty();
+    doneListEl.empty();
+
+    for (let task of tasks) {
+        const card = createTaskCard(task);
+
+        switch (task.status) {
+            case "to-do":
+                todoListEl.append(card);
+                break;
+            case "in-progress":
+                inProgressListEl.append(card);
+                break;
+            case "done":
+                doneListEl.append(card);
+                break;
+        }
+    }
+
+    $(".draggable").draggable({
+        opacity: 0.75,
+        zIndex: 100
+    });
 }
 
 // Todo: create a function to handle adding a new task
